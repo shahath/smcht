@@ -113,10 +113,29 @@ app.post("/api/events/:id/register", authenticate, (req, res) => {
 });
 
 // Payment mock endpoint
-app.post("/api/payment", authenticate, (req, res) => {
+app.post("/api/payment", (req, res) => {
   const { amount, purpose } = req.body;
+  const authorization = req.headers.authorization;
+  let payer = 'Guest';
+
+  if (authorization) {
+    const token = authorization.split(' ')[1];
+    try {
+      const decoded = jwt.verify(token, SECRET_KEY);
+      const user = db.users.find((u) => u.id === decoded.id);
+      if (!user) return res.status(401).json({ error: 'Invalid token' });
+      payer = user.name;
+    } catch (error) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+  }
+
   setTimeout(() => {
-    res.json({ success: true, transactionId: `txn_${Math.random().toString(36).substr(2, 9)}`, message: `Payment of $${amount} for ${purpose} successful.` });
+    res.json({
+      success: true,
+      transactionId: `txn_${Math.random().toString(36).substr(2, 9)}`,
+      message: `Payment of Rs.${amount} for ${purpose} successful. Payer: ${payer}`
+    });
   }, 1000);
 });
 

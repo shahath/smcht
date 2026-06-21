@@ -99,7 +99,28 @@ export default function Donate() {
               </div>
             </div>
 
-            <button className="w-full bg-slate-900 text-white rounded-xl py-4 font-bold text-lg hover:bg-slate-800 transition-colors shadow-lg active:scale-95 flex items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={async () => {
+                const amount = selectedAmount || Number(customAmount || 0);
+                if (!amount || amount <= 0) return;
+
+                try {
+                  const res = await fetch('/api/payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, purpose: 'Donation' }),
+                  });
+
+                  const data = await res.json();
+                  if (!res.ok) throw new Error(data.error || 'Payment failed');
+                  alert(data.message);
+                } catch (error: any) {
+                  alert(error.message || 'Payment failed.');
+                }
+              }}
+              className="w-full bg-slate-900 text-white rounded-xl py-4 font-bold text-lg hover:bg-slate-800 transition-colors shadow-lg active:scale-95 flex items-center justify-center gap-2"
+            >
               Proceed to Payment <ArrowRight className="w-5 h-5" />
             </button>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500 font-medium">

@@ -61,10 +61,21 @@ export default function Events() {
     setRegistering(eventId);
     try {
       if (price > 0) {
-        // Simulate payment gateway
-        await new Promise(r => setTimeout(r, 1000));
+        const paymentRes = await fetch('/api/payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ amount: price, purpose: `Event registration for ${eventId}` })
+        });
+
+        if (!paymentRes.ok) {
+          const paymentData = await paymentRes.json();
+          throw new Error(paymentData.error || 'Payment failed');
+        }
       }
-      
+
       const res = await fetch(`/api/events/${eventId}/register`, {
         method: 'POST',
         headers: { 
