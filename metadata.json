@@ -1,0 +1,6 @@
+{
+  "name": "St. Mary's College OBA",
+  "description": "Alumni association portal for Hambantota St. Mary's College Old Boys Association. Features event registration, payment processing, member directory, and administration dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

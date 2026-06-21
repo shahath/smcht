@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --color-maroon-700: #1b3281;
+
+  --color-amber-50: #fdfae7;
+  --color-amber-100: #faf1b7;
+  --color-amber-200: #f6e379;
+  --color-amber-300: #f7d949;
+  --color-amber-400: #f4d13b;
+  --color-amber-500: #dca714;
+  --color-amber-600: #b97f10;
+  --color-amber-700: #945b12;
+  --color-amber-800: #7b4a15;
+  --color-amber-900: #663e18;
+
+  --color-slate-800: #294098;
+  --color-slate-900: #1b3281;
+  --color-slate-950: #0b1848;
+}
+
+/* Hide Google Translate top banner and gap */
+body {
+  top: 0px !important; 
+}
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon, .goog-te-gadget-simple img {
+  display: none !important;
+}
+/* Hide google tooltip */
+.goog-tooltip {
+  display: none !important;
+  box-shadow: none !important;
+}
+.goog-tooltip:hover {
+  display: none !important;
+  box-shadow: none !important;
+}
+/* Disable background highlight on hover */
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important; 
+  box-shadow: none !important;
+}
+
+/* Language Dropdown Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
